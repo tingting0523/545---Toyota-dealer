@@ -17,7 +17,31 @@ kafka_conf = {
 
 consumer = Consumer(kafka_conf)
 
-consumer.subcribe('sale')
+consumer.subcribe('car_trades')
+
+def project_into_cassandra(event_data):
+    pass
+
+try:
+    while True:
+        msg = consumer.poll(timeout=1.0)
+        if msg is None: 
+            continue
+        if msg.error():
+            if msg.error().code() == KafkaError._PARTITION_EOF:
+                continue
+            else:
+                print(msg.error())
+                break
+    
+        event_data = json.loads(msg.value().decode('utf-8'))
+        
+        project_into_cassandra(event_data)
+except KeyboardInterrupt: 
+    pass
+finally:
+    consumer.close()
+    cassandra_cluster.shutdown()
 
 
 ### Execute Cassandra queries in this section ###

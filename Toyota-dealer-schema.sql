@@ -14,10 +14,13 @@ min_price double(18,2) Not NULL,
 max_price double(18,2) Not NULL,
 milage    int NOT NULL,
 color     varchar(35) NOT NULL,
-location_town varchar(100) NOT NULL,
-location_state varchar(100) NOT NULL,
+dealer_id int NOT NULL,
+title_type varchar(15),
 rating    int
 );
+
+
+
 
 Drop table if exists trade_history;
 CREATE TABLE IF NOT EXISTS trade_history (
@@ -33,6 +36,7 @@ Drop table if exists customers;
 CREATE TABLE IF NOT EXISTS customers (
 cust_id int NOT NULL,
 car_id int NOT NULL,
+car_purchase_date DATE,
 cust_fname varchar(35),
 cust_lname varchar(35)
 );
