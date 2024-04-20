@@ -108,7 +108,7 @@ car_id int,
 accident_date DATE
 );
 
-INSERT INTO car_accident_history (accident_id, car_id, accident_date,repair_accident_descdesc) 
+INSERT INTO car_accident_history (accident_id, car_id, accident_date) 
 VALUES 
 (1, 1, '2020-01-18'),
 (2, 1, '2021-03-08'),
