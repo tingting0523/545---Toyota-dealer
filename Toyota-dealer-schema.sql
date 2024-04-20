@@ -90,3 +90,32 @@ purchase_date DATE
 
 -- we can use search details to calculate search count.
 
+INSERT INTO car_repair_details (repair_id, car_id, repair_date,repair_desc) 
+VALUES 
+(1, 1, '2020-01-18', 'Repair of the left front headlight'),
+(2, 1, '2021-03-08', 'paint repair'),
+(3, 2, '2022-01-05', 'Repair of the left front headlight'),
+(4, 2, '2023-03-17', 'Replace the brake pads'),
+(5, 2, '2024-09-12', 'Repair of the left front headlight'),
+(6, 3, '2021-08-14', 'Replace the tires'),
+(7, 3, '2022-07-16', 'Replace the brake pads'),
+(8, 4, '2023-06-19', 'paint repair'),
+(9, 5, '2024-04-12', 'Replace the tires');
+
+CREATE TABLE  car_accident_history (
+accident_id int auto_increment PRIMARY KEY,
+car_id int,
+accident_date DATE
+);
+
+INSERT INTO car_accident_history (accident_id, car_id, accident_date,repair_accident_descdesc) 
+VALUES 
+(1, 1, '2020-01-18'),
+(2, 1, '2021-03-08'),
+(3, 2, '2022-01-05'),
+(4, 2, '2023-03-17'),
+(5, 2, '2024-09-12'),
+(6, 3, '2021-08-14'),
+(7, 3, '2022-07-16'),
+(8, 4, '2023-06-19'),
+(9, 5, '2024-04-12');
