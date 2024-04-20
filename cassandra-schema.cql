@@ -33,6 +33,8 @@ CREATE TABLE IF NOT EXISTS car_info (
     color     text,
     rating int,
     num_of_owners int,
+    repair_num int,
+    accident_num int,
     PRIMARY KEY (car_id)
 ) WITH CLUSTERING ORDER BY (car_year DESC);
 
