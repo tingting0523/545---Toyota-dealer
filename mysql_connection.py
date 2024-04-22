@@ -75,6 +75,7 @@ def get_purchase_info():
             
             car_id = random.randint(1,20)
             cust_id = random.randint(1,20)
+         
             
             car_info, cust_info, price_range = mysql_conn_func(car_id,cust_id)
             
@@ -122,7 +123,7 @@ def get_purchase_info():
             producer.flush()
             
             print("Event pushed to topic 'car_purchase'.")
-            print(f"{cust_wholename} purchased a {color} {car_make} {car_model} for ${purchase_price} on {purchase_date}.")
+            print(f"{cust_wholename} purchased a {color} {car_year} {car_make} {car_model} for ${purchase_price} on {purchase_date}.")
             
     except Error as e:
         print("Error while connecting to MySQL", e)
