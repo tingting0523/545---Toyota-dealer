@@ -90,6 +90,13 @@ purchase_date DATE
 
 -- we can use search details to calculate search count.
 
+CREATE TABLE  car_repair_details (
+repair_id int auto_increment PRIMARY KEY,
+car_id int,
+repair_date DATE,
+repair_desc text
+);
+
 INSERT INTO car_repair_details (repair_id, car_id, repair_date,repair_desc) 
 VALUES 
 (1, 1, '2020-01-18', 'Repair of the left front headlight'),
