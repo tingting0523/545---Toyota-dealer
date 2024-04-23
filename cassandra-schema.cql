@@ -22,6 +22,17 @@ purchase_date DATE NOT NULL
 
 
 
+CREATE TABLE car_repair_details (
+    repair_id int,
+    car_id int,
+    repair_date date,
+    repair_desc varchar(80),
+    car_year int,
+    car_make varchar(35),
+    car_model varchar(35),
+    PRIMARY KEY(repair_id)
+) WITH CLUSTERING ORDER BY (car_year);
+
 CREATE TABLE IF NOT EXISTS car_info (
     car_id int,
     car_year int,

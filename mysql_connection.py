@@ -20,7 +20,7 @@ def buildConnection():
     return connection
 
 
-def mysql_conn_func(car_id, cust_id):
+def car_purchase_event(car_id, cust_id):
     try:
 
        connection = buildConnection() 
@@ -46,13 +46,39 @@ def mysql_conn_func(car_id, cust_id):
        
        return car_info_row, cust_info_row, price_range
    
+   
     except mysql.connector.Error as err:
         print("MySQL Error: ", err)
     finally:
         if connection.is_connected():
             cursor.close()
             connection.close()
-    
+
+def car_servicing_event(car_id):
+    try:
+       connection = buildConnection()
+        
+       cursor = connection.cursor()
+       
+       cursor.execute("SELECT cust_fname, cust_lname FROM customers WHERE car_id = %s",(car_id))
+       cust_list = cursor.fetchall()
+       
+       cursor.execute("""SELECT repair_date, repair_desc, car_year, car_make, car_model 
+                            FROM car_repair_details 
+                            WHERE car_id = %s
+                            """)
+       servicing_list = cursor.fetchall()
+       
+       return cust_list, servicing_list
+       
+    except mysql.connector.Error as err:
+        print("MySQL Error: ", err)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+       
+       
 
 def get_purchase_info():
     try:
@@ -71,17 +97,18 @@ def get_purchase_info():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
 
+            #Code to extract customer car purchase events 
             cursor = connection.cursor()
             
             car_id = random.randint(1,20)
             cust_id = random.randint(1,20)
          
             
-            car_info, cust_info, price_range = mysql_conn_func(car_id,cust_id)
+            car_info, cust_info, price_range = car_purchase_event(car_id,cust_id)
             
-            car_info = mysql_conn_func(car_id,cust_id)[0]
-            cust_info = mysql_conn_func(car_id,cust_id)[1]
-            price_range = mysql_conn_func(car_id,cust_id)[2]
+            car_info = car_purchase_event(car_id,cust_id)[0]
+            cust_info = car_purchase_event(car_id,cust_id)[1]
+            price_range = car_purchase_event(car_id,cust_id)[2]
             car_year = car_info[0]
             car_make = car_info[1]
             car_model = car_info[2]
@@ -115,6 +142,10 @@ def get_purchase_info():
                 'purchase_date': purchase_date     
             }
             
+            #Code to extract car servicing info
+            
+            
+             
             
             event_json = json.dumps(purchase_event) # serialize the data to an event.
             connection.commit()
@@ -124,6 +155,7 @@ def get_purchase_info():
             
             print("Event pushed to topic 'car_purchase'.")
             print(f"{cust_wholename} purchased a {color} {car_year} {car_make} {car_model} for ${purchase_price} on {purchase_date}.")
+          
             
     except Error as e:
         print("Error while connecting to MySQL", e)
