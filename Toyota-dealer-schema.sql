@@ -86,46 +86,66 @@ car_id int,
 car_year int,
 car_make varchar(35),
 car_model varchar(35) ,
-mileage    int,
-color     varchar(35),
+mileage int,
+color varchar(35),
 cust_id int,
 cust_wholename varchar(81),
-purchase_price double (18,2),
-purchase_date DATE
+sale_price double (18,2),
+sale_date DATE
 );
 
 
-CREATE TABLE car_repair_details (
-    repair_id int,
-    car_id int,
-    repair_date date,
-    repair_desc varchar(80),
-    car_year int,
-    car_make varchar(35),
-    car_model varchar(35),
-    PRIMARY KEY(repair_id)
-);
+
 
 -- we can use search details to calculate search count.
 
+CREATE TABLE car_maint_events (
+	 mech_id int AUTO_INCREMENT PRIMARY KEY,
+     car_id int,
+	 maint_desc varchar(80),
+	 car_year int,
+	 car_make varchar(35),
+     car_model varchar(35)
+);
 
-INSERT INTO car_repair_details (repair_id, car_id, repair_date, repair_desc, car_year, car_make, car_model) 
+
+
+INSERT INTO car_maint_events (car_id, maint_desc, car_year, car_make, car_model) 
 VALUES 
-(10, 5, '2023-10-25', 'repair the left rear taillight', 2021, 'Toyota', 'Sienna'),
-(11, 6, '2022-05-03', 'replace the windshield wipers', 2016, 'Toyota', 'Prius'),
-(12, 7, '2024-02-08', 'repair the right front headlight', 2022, 'Toyota', 'Tacoma'),
-(13, 8, '2021-11-15', 'replace the engine oil filter', 2015, 'Toyota', 'Yaris'),
-(14, 8, '2023-08-27', 'repair the left rear taillight', 2015, 'Toyota', 'Yaris'),
-(15, 9, '2022-09-30', 'replace the windshield wipers', 2023, 'Toyota', 'Avalon'),
-(16, 10, '2020-07-22', 'repair the right front headlight', 2014, 'Toyota', 'Camry'),
-(17, 10, '2021-12-19', 'replace the brake pads', 2014, 'Toyota', 'Camry'),
-(18, 10, '2024-01-14', 'paint repair', 2014, 'Toyota', 'Camry'),
-(19, 11, '2023-05-07', 'replace the tires', 2019, 'Toyota', 'Corolla'),
-(20, 12, '2022-03-11', 'repair the right front headlight', 2020, 'Toyota', 'Camry'),
-(21, 13, '2023-09-28', 'replace the air filter', 2018, 'Toyota', 'Rav4'),
-(22, 14, '2024-03-05', 'repair the right rear taillight', 2017, 'Toyota', 'Highlander'),
-(23, 15, '2022-10-17', 'replace the windshield', 2022, 'Toyota', 'Sienna');
+(5, 'repair the left rear taillight', 2021, 'Toyota', 'Sienna'),
+(6,   'replace the windshield wipers', 2016, 'Toyota', 'Prius'),
+(7, 'repair the right front headlight', 2022, 'Toyota', 'Tacoma'),
+(8,  'replace the engine oil filter', 2015, 'Toyota', 'Yaris'),
+(8,  'repair the left rear taillight', 2015, 'Toyota', 'Yaris'),
+(8,  'repair the the windshield wipers', 2015, 'Toyota', 'Yaris'),
+(9, 'replace the windshield wipers', 2023, 'Toyota', 'Avalon'),
+(10,  'repair the right front headlight', 2014, 'Toyota', 'Camry'),
+(10, 'replace the brake pads', 2014, 'Toyota', 'Camry'),
+(10,  'touch up the paint', 2014, 'Toyota', 'Camry'),
+(11,  'replace the tires', 2019, 'Toyota', 'Corolla'),
+(12,  'repair the right front headlight', 2020, 'Toyota', 'Camry'),
+(13,  'replace the air filter', 2018, 'Toyota', 'Rav4'),
+(14,  'repair the right rear taillight', 2017, 'Toyota', 'Highlander'),
+(15, 'replace the windshield wipers', 2022, 'Toyota', 'Sienna'),
+(16, 'replace the windshield wipers', 2015, 'Toyota', 'Tacoma');
 
+
+CREATE TABLE car_maint_history(
+    maint_id int AUTO_INCREMENT PRIMARY KEY,
+    mech_id int,
+    car_id int,
+    cust_id int,
+    cust_fname varchar(35),
+    cust_lname varchar(35),
+    maint_date date,
+    maint_desc varchar(80),
+    car_year int,
+    car_make varchar(35),
+    car_model varchar(35),
+    maint_cost int,
+    FOREIGN KEY (car_id) REFERENCES car_list(car_id),
+    FOREIGN KEY (cust_id) REFERENCES customers(cust_id)
+);
 
 CREATE TABLE  car_accident_history (
 accident_id int auto_increment PRIMARY KEY,

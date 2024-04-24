@@ -16,22 +16,28 @@ car_model varchar(35) NOT NULL,
 color     varchar(35) NOT NULL,
 cust_id int NOT NULL,
 cust_wholename varchar(80),
-purchase_price double(18.2).
-purchase_date DATE NOT NULL
+sale_price double(18.2).
+sale_date DATE NOT NULL
 );
 
 
 
-CREATE TABLE car_repair_details (
-    repair_id int,
+CREATE TABLE car_maint_history(
+    maint_id int,
+    mech_id int,
     car_id int,
-    repair_date date,
-    repair_desc varchar(80),
+    cust_id int,
+    cust_fullname varchar(80),
+    maint_date date,
+    maint_desc varchar(80),
     car_year int,
     car_make varchar(35),
     car_model varchar(35),
-    PRIMARY KEY(repair_id)
-) WITH CLUSTERING ORDER BY (car_year);
+    maint_cost int,
+    PRIMARY KEY(maint_id)
+) WITH CLUSTERING ORDER BY maint_date;
+
+
 
 CREATE TABLE IF NOT EXISTS car_info (
     car_id int,
