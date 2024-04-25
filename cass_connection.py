@@ -22,14 +22,14 @@ consumer.subcribe('car_trades')
 def project_into_cassandra(event_data):
     
     cql = """
-            INSERT INTO car_purchases (car_id,car_year,car_make,car_model, color,
-                                          cust_id, cust_wholename, purchase_price, purchase_date);
+            INSERT INTO car_purchases (purchase_id,car_id,car_year,car_make,car_model,color
+                                  ,cust_id,cust_wholename,sale_price,sale_date);
           """
     
-    session.execute(cql, (event_data['car_id'], event_data['car_year'],event_data['car_make'],
-                          event_data['car_model'], event_data['color'],event_data['cust_id'],
-                          event_data['cust_name'], event_data['purchase_price'],
-                          event_data['purchase_date']))
+    session.execute(cql, (event_data['purchase_id'], event_data['car_id'],event_data['car_year'],
+                          event_data['car_make'], event_data['car_model'],event_data['color'],
+                          event_data['cust_id'], event_data['cust_wholename'],
+                          event_data['sale_price'],event_data['sale_date']))
     
 def accident_into_cassandra(event_data):
     
