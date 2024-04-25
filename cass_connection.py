@@ -11,7 +11,7 @@ session = cassandra_cluster.connect('car_purchase_prices')
 
 kafka_conf = {
     'bootstrap.servers': 'localhost:9093',
-    'group_id': 'sale_group',
+    'group.id': 'sale_group',
     'auto.offset.reset': 'earliest'   
 }
 
@@ -23,15 +23,23 @@ def project_into_cassandra(event_data):
     
     cql = """
             INSERT INTO car_purchases (car_id,car_year,car_make,car_model, color,
-                                          cust_id, cust_wholename, purchase_price, purchase_date)
+                                          cust_id, cust_wholename, purchase_price, purchase_date);
           """
     
-
     session.execute(cql, (event_data['car_id'], event_data['car_year'],event_data['car_make'],
                           event_data['car_model'], event_data['color'],event_data['cust_id'],
                           event_data['cust_name'], event_data['purchase_price'],
                           event_data['purchase_date']))
     
+def accident_into_cassandra(event_data):
+    
+    cql = """
+            INSERT INTO car_accident_history (accident_id,car_id,accident_date);
+          """
+    
+    session.execute(cql, (event_data['accident_id'], event_data['car_id'],event_data['accident_date']))
+    
+
 try:
     while True:
         msg = consumer.poll(timeout=1.0)
@@ -47,6 +55,7 @@ try:
         event_data = json.loads(msg.value().decode('utf-8'))
         
         project_into_cassandra(event_data)
+        accident_into_cassandra(event_data)
 except KeyboardInterrupt: 
     pass
 finally:

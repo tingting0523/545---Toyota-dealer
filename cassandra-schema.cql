@@ -3,11 +3,11 @@ WITH replication = {
     'class': 'SimpleStrategy', 
     'replication_factor': 1 };
 
-USE sale_monitoring;
+USE car_purchase_prices;
 
 
 CREATE TABLE IF NOT EXISTS car_purchases (
-purchase_id int PRIMARY KEY not NULL,
+purchase_id int PRIMARY KEY NOT NULL,
 car_id int NOT NULL,
 car_year int NOT NULL,
 car_make varchar(35) NOT NULL,
@@ -16,8 +16,8 @@ car_model varchar(35) NOT NULL,
 color     varchar(35) NOT NULL,
 cust_id int NOT NULL,
 cust_wholename varchar(80),
-purchase_price double(18.2).
-purchase_date DATE NOT NULL
+sale_price double(18.2).
+sale_date DATE NOT NULL
 );
 
 
