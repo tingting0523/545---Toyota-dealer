@@ -72,7 +72,7 @@ def get_purchase_info():
             print("Connected to MySQL Server version ", db_Info)
 
             cursor = connection.cursor()
-            
+            purchase_id = random.randint(1,2000)
             car_id = random.randint(1,20)
             cust_id = random.randint(1,20)
             
@@ -94,15 +94,16 @@ def get_purchase_info():
             
             
             car_db_query = """INSERT INTO car_purchases 
-                              (car_id, car_year, car_make, car_model, color, 
-                               cust_id, cust_wholename, purchase_price, 
-                               purchase_date) VALUES 
-                               (%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+                              (purchase_id,car_id,car_year,car_make,car_model,color
+                                  ,cust_id,cust_wholename,purchase_price,purchase_date
+                               ) VALUES 
+                               (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
             
-            purchase_info = (car_id,car_year,car_make,car_model,color,cust_id,cust_wholename,purchase_price,purchase_date)
+            purchase_info = (purchase_id,car_id,car_year,car_make,car_model,color,cust_id,cust_wholename,purchase_price,purchase_date)
             cursor.execute(car_db_query, purchase_info)
             
             purchase_event = {
+                'purchase_id': purchase_id,
                 'car_id': car_id,
                 'car_year': car_year,
                 'car_make': car_make,
