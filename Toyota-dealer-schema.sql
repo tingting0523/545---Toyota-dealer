@@ -55,6 +55,8 @@ dealer_id int,
 PRIMARY KEY (cust_id)
 );
 
+SELECT car_id, car_year, car_make, car_model FROM customers
+ORDER by car_id asc;
 
 INSERT INTO customers (car_id, cust_id, cust_fname, cust_lname, car_year, car_make, car_model, mileage, color, dealer_id) 
 VALUES 
@@ -89,7 +91,7 @@ car_model varchar(35) ,
 mileage int,
 color varchar(35),
 cust_id int,
-cust_wholename varchar(81),
+cust_fullname varchar(81),
 sale_price double (18,2),
 sale_date DATE
 );
@@ -106,12 +108,6 @@ repair_date DATE,
 repair_desc text
 );
 
-CREATE TABLE  car_repair_details (
-repair_id int auto_increment PRIMARY KEY,
-car_id int,
-repair_date DATE,
-repair_desc text
-);
 
 CREATE TABLE car_maint_events (
 	 mech_id int AUTO_INCREMENT PRIMARY KEY,
@@ -126,6 +122,10 @@ CREATE TABLE car_maint_events (
 
 INSERT INTO car_maint_events (car_id, maint_desc, car_year, car_make, car_model) 
 VALUES 
+(1, 'replace the engine oil filter', 2020, 'Toyota', 'Camry'),
+(2, 'replace the windshield wipers', 2017, 'Toyota', 'Highlander'),
+(3, 'replace the brake pads', 2015, 'Toyota', 'Yaris'),
+(4, 'change the engine oil', 2019, 'Toyota', 'Highlander'),
 (5, 'repair the left rear taillight', 2021, 'Toyota', 'Sienna'),
 (6,   'replace the windshield wipers', 2016, 'Toyota', 'Prius'),
 (7, 'repair the right front headlight', 2022, 'Toyota', 'Tacoma'),
@@ -141,7 +141,14 @@ VALUES
 (13,  'replace the air filter', 2018, 'Toyota', 'Rav4'),
 (14,  'repair the right rear taillight', 2017, 'Toyota', 'Highlander'),
 (15, 'replace the windshield wipers', 2022, 'Toyota', 'Sienna'),
-(16, 'replace the windshield wipers', 2015, 'Toyota', 'Tacoma');
+(16, 'replace the windshield wipers', 2015, 'Toyota', 'Tacoma'),
+(17, 'replace the tires', 2018, 'Toyota', 'Rav4'),
+(18, 'repair the left rear taillight', 2021, 'Toyota', 'Sienna'),
+(19, 'replace the windshield wipers', 2021, 'Toyota', 'Corolla'),
+(20, 'replace the tires', 2014, 'Toyota', 'Camry');
+
+
+
 
 
 CREATE TABLE car_maint_history(

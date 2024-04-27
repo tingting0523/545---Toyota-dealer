@@ -15,7 +15,7 @@ car_model varchar(35) NOT NULL,
 -- mileage    int NOT NULL,
 color     varchar(35) NOT NULL,
 cust_id int NOT NULL,
-cust_wholename varchar(80),
+cust_fullname varchar(80),
 sale_price double(18.2),
 sale_date DATE NOT NULL
 );
