@@ -39,13 +39,13 @@ CREATE TABLE car_maint_history(
 
 
 
-CREATE TABLE IF NOT EXISTS car_info (
+CREATE TABLE IF NOT EXISTS car_purchase_prices.car_info (
     car_id int,
     car_year int,
     car_make text,
     car_model text,
-    min_price double(7,2) ,
-    max_price double(7,2) ,
+    min_price double,
+    max_price double,
     milage    int,
     color     text,
     rating int,
@@ -53,37 +53,27 @@ CREATE TABLE IF NOT EXISTS car_info (
     repair_num int,
     accident_num int,
     PRIMARY KEY (car_id)
-) WITH CLUSTERING ORDER BY (car_year DESC);
+);
 
 
-CREATE TABLE IF NOT EXISTS car_stats (
+CREATE TABLE IF NOT EXISTS car_purchase_prices.car_stats (
     sale_date DATE,
     car_id int,
     car_make text,
     car_model text,
-    avg_price DOUBLE(7,2)
+    avg_price DOUBLE,
     mileage int,
     color text,
     location_town text,
     location_state text,
-    sales_count int
-) WITH CLUSTERING ORDER BY (car_year DESC);
+    sales_count int,
+    PRIMARY KEY (sale_date,car_id)
+);
 
-
-CREATE TABLE IF NOT EXISTS statistical_analysis (
-    sale_date date,
-    car_id text,
-    car_year int,
-    car_make text,
-    car_model text, 
-    avg_price DOUBLE,
-    mileage int, 
-    color text,
-    sales_count int
-)WITH CLUSTERING ORDER BY (sale_date DESC);
-
-CREATE TABLE IF NOT EXISTS car_accident_history (
+CREATE TABLE IF NOT EXISTS car_purchase_prices.car_accident_history (
 accident_id int PRIMARY KEY,
 car_id int,
 accident_date date
 );
+
+-- SELECT keyspace_name, table_name FROM system_schema.tables WHERE keyspace_name = 'car_purchase_prices';

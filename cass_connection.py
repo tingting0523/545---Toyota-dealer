@@ -17,19 +17,21 @@ kafka_conf = {
 
 consumer = Consumer(kafka_conf)
 
-consumer.subcribe('car_trades')
+topics = ['car_db']
+consumer.subscribe(topics)
 
 def project_into_cassandra(event_data):
     
     cql = """
             INSERT INTO car_purchases (purchase_id,car_id,car_year,car_make,car_model,color
-                                  ,cust_id,cust_wholename,sale_price,sale_date);
+                                  ,cust_id,cust_wholename,purchase_price)
+                                  VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s);
           """
-    
-    session.execute(cql, (event_data['purchase_id'], event_data['car_id'],event_data['car_year'],
+
+    session.execute(cql, (event_data['purchase_id'],event_data['car_id'],event_data['car_year'],
                           event_data['car_make'], event_data['car_model'],event_data['color'],
                           event_data['cust_id'], event_data['cust_wholename'],
-                          event_data['sale_price'],event_data['sale_date']))
+                          event_data['purchase_price']))
     
 def accident_into_cassandra(event_data):
     
