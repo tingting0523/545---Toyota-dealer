@@ -96,6 +96,7 @@ sale_price double (18,2),
 sale_date DATE
 );
 
+CREATE INDEX index_car ON toyota_dealer.car_purchases (car_year,car_make,car_model,color);
 
 
 
@@ -108,6 +109,7 @@ repair_date DATE,
 repair_desc text
 );
 
+CREATE FULLTEXT INDEX index_repair_desc ON toyota_dealer.car_repair_details (repair_desc);
 
 CREATE TABLE car_maint_events (
 	 mech_id int AUTO_INCREMENT PRIMARY KEY,
@@ -168,20 +170,21 @@ CREATE TABLE car_maint_history(
     FOREIGN KEY (cust_id) REFERENCES customers(cust_id)
 );
 
-CREATE TABLE  car_accident_history (
+
+CREATE TABLE IF NOT EXISTS car_accident_history (
 accident_id int auto_increment PRIMARY KEY,
 car_id int,
-accident_date DATE
+accident_date date
 );
 
-INSERT INTO car_accident_history (accident_id, car_id, accident_date) 
+INSERT INTO car_accident_history (car_id, accident_date) 
 VALUES 
-(1, 1, '2020-01-18'),
-(2, 1, '2021-03-08'),
-(3, 2, '2022-01-05'),
-(4, 2, '2023-03-17'),
-(5, 2, '2024-09-12'),
-(6, 3, '2021-08-14'),
-(7, 3, '2022-07-16'),
-(8, 4, '2023-06-19'),
-(9, 5, '2024-04-12');
+(1, '2020-01-18'),
+(1, '2021-03-08'),
+(2, '2022-01-05'),
+(2, '2023-03-17'),
+(2, '2024-09-12'),
+(3, '2021-08-14'),
+(3, '2022-07-16'),
+(4, '2023-06-19'),
+(5, '2024-04-12');

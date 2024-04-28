@@ -6,6 +6,7 @@ from faker import Faker
 import time
 import sale_data as sale_data_mod
 import maint_data as maint_data_mod
+import accident_data as acc_data_mod
 
 fake = Faker()
 
@@ -32,7 +33,11 @@ def maint_data_prt():
     maint_data = maint_data_mod.maint_data_insert()
     return (f"On {maint_data['maint_date']} the mechanic will {maint_data['maint_desc']} on {maint_data['cust_fname']} {maint_data['cust_lname']}'s "
                   f"{maint_data['car_year']} {maint_data['car_make']} {maint_data['car_model']} "
-                  f"for ${maint_data['maint_cost']}")  
+                  f"for ${maint_data['maint_cost']}.")  
+    
+def acc_data_prt():
+    acc_data = acc_data_mod.accident_data_insert()
+    return (f"Car accident occurred on {acc_data['accident_date']}.")
         
             
 def event_data_serialize(ins_stment,prt_statement):
@@ -75,10 +80,13 @@ def main():
     while True:
         sale_ins = sale_data_mod.sale_data_insert()
         maint_ins = maint_data_mod.maint_data_insert()
+        accident_ins = acc_data_mod.accident_data_insert()
         
         event_data_serialize(sale_ins,sale_data_prt())
         time.sleep(1)  # Pause for 1 second before the next insert
         event_data_serialize(maint_ins,maint_data_prt())
+        time.sleep(1)
+        event_data_serialize(accident_ins,acc_data_prt())
         time.sleep(1)
         
        

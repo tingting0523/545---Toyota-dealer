@@ -20,23 +20,38 @@ consumer = Consumer(kafka_conf)
 topics = ['car_db']
 consumer.subscribe(topics)
 
-def project_into_cassandra(event_data):
+def car_sale_into_cassandra(event_data):
     
     cql = """
             INSERT INTO car_purchases (purchase_id,car_id,car_year,car_make,car_model,color
-                                  ,cust_id,cust_wholename,purchase_price)
+                                  ,cust_id,cust_fullname,purchase_price)
                                   VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s);
           """
 
     session.execute(cql, (event_data['purchase_id'],event_data['car_id'],event_data['car_year'],
                           event_data['car_make'], event_data['car_model'],event_data['color'],
-                          event_data['cust_id'], event_data['cust_wholename'],
+                          event_data['cust_id'], event_data['cust_fullname'],
                           event_data['purchase_price']))
+    
+    
+def maint_data_into_cassandra(event_data):
+    
+    cql = """
+                INSERT INTO car_maint_history (mech_id, car_id, cust_id, cust_fname, cust_lname, maint_date, maint_desc, 
+                                    car_year, car_make, car_model, maint_cost)
+                                    VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+          """
+          
+    session.execute(cql, (event_data['mech_id'], (event_data['car_id']), (event_data['cust_id']),  
+                           event_data['cust_fname'], event_data['cust_lname'], event_data['maint_date'], 
+                           event_data['maint_desc'], event_data['car_year'], event_data['car_make'], 
+                           event_data['car_model'], event_data['maint_cost'])) 
     
 def accident_into_cassandra(event_data):
     
     cql = """
-            INSERT INTO car_accident_history (accident_id,car_id,accident_date);
+            INSERT INTO car_accident_history (accident_id,car_id,accident_date)
+            VALUES(%s,%s,%s);
           """
     
     session.execute(cql, (event_data['accident_id'], event_data['car_id'],event_data['accident_date']))
@@ -56,7 +71,8 @@ try:
     
         event_data = json.loads(msg.value().decode('utf-8'))
         
-        project_into_cassandra(event_data)
+        car_sale_into_cassandra(event_data)
+        maint_data_into_cassandra(event_data)
         accident_into_cassandra(event_data)
 except KeyboardInterrupt: 
     pass
