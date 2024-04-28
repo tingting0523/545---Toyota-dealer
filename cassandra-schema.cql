@@ -6,19 +6,21 @@ WITH replication = {
 USE car_purchase_prices;
 
 
-CREATE TABLE IF NOT EXISTS car_purchase_prices.car_purchases (
-    purchase_id int,
-    car_id int,
-    car_year int,
-    car_make varchar,
-    car_model varchar,
-    color varchar,
-    cust_id int,
-    cust_wholename varchar,
-    purchase_price double,
-    purchase_date DATE,
-    PRIMARY KEY (purchase_id)
+CREATE TABLE IF NOT EXISTS car_purchases (
+purchase_id int PRIMARY KEY not NULL,
+car_id int NOT NULL,
+car_year int NOT NULL,
+car_make varchar(35) NOT NULL,
+car_model varchar(35) NOT NULL,
+-- mileage    int NOT NULL,
+color     varchar(35) NOT NULL,
+cust_id int NOT NULL,
+cust_wholename varchar(80),
+purchase_price double(18.2).
+purchase_date DATE NOT NULL
 );
+
+
 
 CREATE TABLE IF NOT EXISTS car_purchase_prices.car_info (
     car_id int,

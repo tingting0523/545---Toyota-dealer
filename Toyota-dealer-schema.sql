@@ -42,34 +42,42 @@ VALUES
 
 
 CREATE TABLE  customers (
+car_id int,
 cust_id int,
 cust_fname varchar(35),
-cust_lname varchar(35)
+cust_lname varchar(35),
+car_year int,
+car_make varchar(35),
+car_model varchar(35),
+mileage    int,
+color     varchar(35),
+dealer_id int,
+PRIMARY KEY (cust_id)
 );
 
 
-INSERT INTO customers (cust_id, cust_fname, cust_lname) 
+INSERT INTO customers (car_id, cust_id, cust_fname, cust_lname, car_year, car_make, car_model, mileage, color, dealer_id) 
 VALUES 
-(1, 'John', 'Doe'),
-(2, 'Alice', 'Smith'),
-(3, 'Michael', 'Johnson'),
-(4, 'Emily', 'Brown'),
-(5, 'James', 'Wilson'),
-(6, 'Sophia', 'Martinez'),
-(7, 'Daniel', 'Anderson'),
-(8, 'Olivia', 'Taylor'),
-(9, 'Matthew', 'Thomas'),
-(10, 'Emma', 'Jackson'),
-(11, 'David', 'White'),
-(12, 'Ava', 'Harris'),
-(13, 'Liam', 'Martin'),
-(14, 'Isabella', 'Thompson'),
-(15, 'Mason', 'Garcia'),
-(16, 'Sophia', 'Martinez'),
-(17, 'Ethan', 'Jones'),
-(18, 'Amelia', 'Clark'),
-(19, 'Logan', 'Lewis'),
-(20, 'Evelyn', 'Lee');
+(5, 1, 'John', 'Doe', 2017,'Toyota','Rav4',35000,'Silver',103),
+(16, 2, 'Alice', 'Smith', 2020,'Toyota','Camry',0,'White',102),
+(12, 3, 'Michael', 'Johnson', 2015,'Toyota','Tacoma',70000,'Gray',116),
+(7, 4, 'Emily', 'Brown', 2018,'Toyota','Corolla',30000,'Blue',101),
+(1, 5, 'James', 'Wilson', 2020,'Toyota','Camry',15000,'Silver',112),
+(18, 6, 'Sophia', 'Martinez', 2021,'Toyota','Sienna',0,'Red',105),
+(3, 7, 'Daniel', 'Anderson', 2015,'Toyota','Yaris',45000,'Yellow',108),
+(9, 8, 'Olivia', 'Taylor', 2023,'Toyota','Yaris',10000,'Black',117),
+(19, 9, 'Matthew', 'Thomas', 2014,'Toyota','Camry',80000,'Red',120),
+(10, 10, 'Emma', 'Jackson', 2016,'Toyota','Prius',40000,'Green',106),
+(15, 11, 'David', 'White', 2023,'Toyota','Avalon',0,'Black',109),
+(14, 12, 'Ava', 'Harris', 2022,'Toyota','Tacoma',0,'Gray',107),
+(11, 13, 'Liam', 'Martin', 2019,'Toyota','Corolla',25000,'Black',111),
+(2, 14, 'Isabella', 'Thompson', 2017,'Toyota','Highlander',20000,'White',114),
+(17, 15, 'Mason', 'Garcia', 2018,'Toyota','Rav4',30000,'Blue',113),
+(6, 16, 'Sophia', 'Martinez', 2021,'Toyota','Corolla',20000,'Blue',119),
+(13, 17, 'Ethan', 'Jones', 2019,'Toyota','Highlander',20000,'Black',104),
+(8, 18, 'Amelia', 'Clark', 2014,'Toyota','Camry',50000,'Silver',110),
+(20, 19, 'Logan', 'Lewis', 2016,'Toyota','Avalon',40000,'Silver',118),
+(4, 20, 'Evelyn', 'Lee', 2019,'Toyota','Highlander', 25000,'Black',104);
 
 
 CREATE TABLE  car_purchases (
@@ -78,13 +86,14 @@ car_id int,
 car_year int,
 car_make varchar(35),
 car_model varchar(35) ,
-mileage    int,
-color     varchar(35),
+mileage int,
+color varchar(35),
 cust_id int,
 cust_wholename varchar(81),
-purchase_price double (18,2),
-purchase_date DATE
+sale_price double (18,2),
+sale_date DATE
 );
+
 
 
 
@@ -97,17 +106,53 @@ repair_date DATE,
 repair_desc text
 );
 
-INSERT INTO car_repair_details (repair_id, car_id, repair_date,repair_desc) 
+CREATE TABLE car_maint_events (
+	 mech_id int AUTO_INCREMENT PRIMARY KEY,
+     car_id int,
+	 maint_desc varchar(80),
+	 car_year int,
+	 car_make varchar(35),
+     car_model varchar(35)
+);
+
+
+
+INSERT INTO car_maint_events (car_id, maint_desc, car_year, car_make, car_model) 
 VALUES 
-(1, 1, '2020-01-18', 'Repair of the left front headlight'),
-(2, 1, '2021-03-08', 'paint repair'),
-(3, 2, '2022-01-05', 'Repair of the left front headlight'),
-(4, 2, '2023-03-17', 'Replace the brake pads'),
-(5, 2, '2024-09-12', 'Repair of the left front headlight'),
-(6, 3, '2021-08-14', 'Replace the tires'),
-(7, 3, '2022-07-16', 'Replace the brake pads'),
-(8, 4, '2023-06-19', 'paint repair'),
-(9, 5, '2024-04-12', 'Replace the tires');
+(5, 'repair the left rear taillight', 2021, 'Toyota', 'Sienna'),
+(6,   'replace the windshield wipers', 2016, 'Toyota', 'Prius'),
+(7, 'repair the right front headlight', 2022, 'Toyota', 'Tacoma'),
+(8,  'replace the engine oil filter', 2015, 'Toyota', 'Yaris'),
+(8,  'repair the left rear taillight', 2015, 'Toyota', 'Yaris'),
+(8,  'repair the the windshield wipers', 2015, 'Toyota', 'Yaris'),
+(9, 'replace the windshield wipers', 2023, 'Toyota', 'Avalon'),
+(10,  'repair the right front headlight', 2014, 'Toyota', 'Camry'),
+(10, 'replace the brake pads', 2014, 'Toyota', 'Camry'),
+(10,  'touch up the paint', 2014, 'Toyota', 'Camry'),
+(11,  'replace the tires', 2019, 'Toyota', 'Corolla'),
+(12,  'repair the right front headlight', 2020, 'Toyota', 'Camry'),
+(13,  'replace the air filter', 2018, 'Toyota', 'Rav4'),
+(14,  'repair the right rear taillight', 2017, 'Toyota', 'Highlander'),
+(15, 'replace the windshield wipers', 2022, 'Toyota', 'Sienna'),
+(16, 'replace the windshield wipers', 2015, 'Toyota', 'Tacoma');
+
+
+CREATE TABLE car_maint_history(
+    maint_id int AUTO_INCREMENT PRIMARY KEY,
+    mech_id int,
+    car_id int,
+    cust_id int,
+    cust_fname varchar(35),
+    cust_lname varchar(35),
+    maint_date date,
+    maint_desc varchar(80),
+    car_year int,
+    car_make varchar(35),
+    car_model varchar(35),
+    maint_cost int,
+    FOREIGN KEY (car_id) REFERENCES car_list(car_id),
+    FOREIGN KEY (cust_id) REFERENCES customers(cust_id)
+);
 
 CREATE TABLE  car_accident_history (
 accident_id int auto_increment PRIMARY KEY,
