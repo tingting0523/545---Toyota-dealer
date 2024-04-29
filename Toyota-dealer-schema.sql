@@ -173,7 +173,7 @@ CREATE TABLE car_maint_history(
 );
 
 
-CREATE TABLE IF NOT EXISTS car_accident_history (
+CREATE TABLE car_accident_history (
 accident_id int auto_increment PRIMARY KEY,
 car_id int,
 accident_date date
