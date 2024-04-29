@@ -96,7 +96,8 @@ sale_price double (18,2),
 sale_date DATE
 );
 
-CREATE INDEX index_car ON toyota_dealer.car_purchases (car_year,car_make,car_model,color);
+CREATE INDEX index_car 
+ON toyota_dealer.car_purchases (car_year,car_make,car_model,color);
 
 
 
@@ -109,7 +110,8 @@ repair_date DATE,
 repair_desc text
 );
 
-CREATE FULLTEXT INDEX index_repair_desc ON toyota_dealer.car_repair_details (repair_desc);
+CREATE FULLTEXT INDEX index_repair_desc 
+ON toyota_dealer.car_repair_details (repair_desc);
 
 CREATE TABLE car_maint_events (
 	 mech_id int AUTO_INCREMENT PRIMARY KEY,

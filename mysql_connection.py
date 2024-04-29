@@ -83,7 +83,7 @@ def main():
         accident_ins = acc_data_mod.accident_data_insert()
         
         event_data_serialize(sale_ins,sale_data_prt())
-        time.sleep(1)  # Pause for 1 second before the next insert
+        time.sleep(1)
         event_data_serialize(maint_ins,maint_data_prt())
         time.sleep(1)
         event_data_serialize(accident_ins,acc_data_prt())
