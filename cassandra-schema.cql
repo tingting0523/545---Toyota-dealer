@@ -51,10 +51,6 @@ CREATE TABLE IF NOT EXISTS car_maint_history(
 
 
 
-
-
-
-
 CREATE TABLE IF NOT EXISTS car_accident_history (
 accident_id int PRIMARY KEY,
 car_id int,

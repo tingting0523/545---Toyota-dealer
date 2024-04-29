@@ -7,7 +7,7 @@ cassandra_cluster = Cluster (
     ['127.0.0.1'],
     port=9042
 )
-session = cassandra_cluster.connect('car_purchase_prices')
+session = cassandra_cluster.connect('car_db')
 
 kafka_conf = {
     'bootstrap.servers': 'localhost:9093',

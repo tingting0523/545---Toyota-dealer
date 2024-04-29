@@ -62,7 +62,7 @@ def sale_data_insert():
     
     cust_fname = cust_info['cust_fname']
     cust_lname= cust_info['cust_lname']
-    sale_price = round((random.uniform(price_range['min_price'],price_range['max_price'])),2)
+    sale_price = format(random.uniform(price_range['min_price'],price_range['max_price']),'.2f')
     sale_date = str(fake.date_between(start_date='-2y', end_date='-1y'))
     cust_fullname = cust_fname + " " + cust_lname
     
